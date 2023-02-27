@@ -34,10 +34,12 @@ target_link_libraries(rbusSampleConsumer rbus)
 ########
 add_executable(rbusCSIProvider provider/rbusCSIEventProvider.c)
 add_dependencies(rbusCSIProvider rbus)
+target_link_libraries(rbusCSIProvider "-pg")
 target_link_libraries(rbusCSIProvider rbus)
 
 add_executable(rbusCSIConsumer consumer/rbusCSIEventConsumer.c)
 add_dependencies(rbusCSIConsumer rbus)
+target_link_libraries(rbusCSIConsumer "-pg")
 target_link_libraries(rbusCSIConsumer rbus)
 ######
 
