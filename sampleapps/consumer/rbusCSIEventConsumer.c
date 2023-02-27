@@ -22,13 +22,14 @@
 #include <rbus.h>
 #include <rtTime.h>
 #include <rtLog.h>
-
+#include <unistd.h>
 
 static void bigDataEventHandler(
     rbusHandle_t handle,
     rbusEvent_t const* event,
     rbusEventSubscription_t* subscription)
 {
+    (void) subscription;
     rtTime_t t;
     char timebuf[200] = "";
     rtLog_Warn("Consumer receiver big event for param %s :: %s", rtTime_ToString (rtTime_Now(&t), timebuf),event->name);
