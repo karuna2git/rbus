@@ -34,6 +34,7 @@
 
 rbusHandle_t        rbusHandle;
 char                componentName[20] = "rbusSampleProvider";
+int loop = 1;
 
 rbusError_t SampleProvider_SampleDataGetHandler(rbusHandle_t handle, rbusProperty_t property, rbusGetHandlerOptions_t* opts);
 rbusError_t eventSubHandler(rbusHandle_t handle, rbusEventSubAction_t action, const char* eventName, rbusFilter_t filter, int32_t interval, bool* autoPublish);
@@ -59,6 +60,9 @@ rbusError_t eventSubHandler(rbusHandle_t handle, rbusEventSubAction_t action, co
         "\teventName=%s\n",
         action == RBUS_EVENT_ACTION_SUBSCRIBE ? "subscribe" : "unsubscribe",
         eventName);
+
+    if (action != RBUS_EVENT_ACTION_SUBSCRIBE)
+        loop = 0;
 
     *autoPublish = false;
     return RBUS_ERROR_SUCCESS;
@@ -147,12 +151,12 @@ int main(int argc, char *argv[])
     event.type = RBUS_EVENT_GENERAL;
 
     printf("publishing Event1\n");
-    while(1)
+    while(loop)
     {
-        rc = rbusEvent_Publish(rbusHandle, &event);
-        rc = rbusEvent_Publish(rbusHandle, &event);
-        rc = rbusEvent_Publish(rbusHandle, &event);
         usleep(250000);
+        rc = rbusEvent_Publish(rbusHandle, &event);
+        rc = rbusEvent_Publish(rbusHandle, &event);
+        rc = rbusEvent_Publish(rbusHandle, &event);
     }
 
     rbusValue_Release(value);

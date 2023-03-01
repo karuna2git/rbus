@@ -226,6 +226,9 @@ void rtLogPrintf(rtLogLevel level, const char* mod, const char* file, int line, 
 
   va_list args;
 
+  if ((level < sLevel) && (sOption == RT_USE_RTLOGGER))
+    return;
+
   va_start(args, format);
   n = vsnprintf(buff, (RT_LOG_BUFFER_SIZE - 1), format, args);
   va_end(args);
