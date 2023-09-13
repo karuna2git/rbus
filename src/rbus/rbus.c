@@ -1124,12 +1124,14 @@ static int _event_subscribe_callback_handler(char const* object,  char const* ev
     return err;
 }
 
+#if 0
 static void _client_disconnect_callback_handler(const char * listener)
 {
     LockMutex();
     rbusHandleList_ClientDisconnect(listener);
     UnlockMutex();
 }
+#endif
 
 void _subscribe_async_callback_handler(rbusHandle_t handle, rbusEventSubscription_t* subscription, rbusError_t error)
 {
